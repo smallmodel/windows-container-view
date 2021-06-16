@@ -1,0 +1,28 @@
+import "oaidl.idl";
+import "ocidl.idl";
+#include "SandboxEvent.h"
+
+[
+	uuid(1139fa8f-8df4-4538-a82f-ea477b3e8ea9),
+	version(1.0)
+]
+
+interface Sandbox
+{
+	void RpcBeginImage(
+		[in] unsigned long Width,
+		[in] unsigned long Height,
+		[in] unsigned long Size
+	);
+
+	void RpcSendImageChunkData(
+		[in] unsigned long BitmapSize,
+		[in, size_is(BitmapSize), length_is(BitmapSize)] const unsigned char BitmapData[*]
+	);
+
+	void RpcEndImage();
+
+	boolean RpcPopEvent(
+		[out, ref] struct SandboxEvent* Event
+	);
+}
